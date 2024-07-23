@@ -73,6 +73,16 @@ export const signal = async() => {
   }
 }
 
+export const getCurrentSignal = async(activityId: string) => {
+  try {
+    const response = await axios.post(`${baseUrl}/signal/${activityId}`, {});
+    return 4; // todo
+  } catch(error){
+    return 4;
+
+  }
+}
+
 export const fetchPreview = async (url: string) => {
   try {
     const requestBody = {

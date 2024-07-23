@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import { Button } from "frames.js/next";
 import { frames } from "../frames";
-import { fetchBooking, fetchPreview, fetchBulkUsers } from "../../services";
+import { fetchBooking, fetchPreview, fetchBulkUsers, getCurrentSignal } from "../../services";
 import InfoHeader from "./InfoHeader";
 import { farcasterHubContext } from "frames.js/middleware";
 
@@ -19,6 +19,8 @@ const frameHandler = frames(async (ctx) => {
   if (!activityId) throw Error("Invalid param");
   const { content, booking } = await fetchBooking(activityId);
   console.log('ctx', ctx);
+
+  const currentSignal = await getCurrentSignal(activityId)
 
   const bookerFid = Number((booking as any).bookerFid);
   const ownerFid = activityId.split("-")[0];
@@ -62,7 +64,7 @@ const frameHandler = frames(async (ctx) => {
           <div tw="font-bold text-[40px] my-3">{title}</div>
           <div tw="text-[28px]">{description.slice(0, 75) + "..."}</div>
         </div>
-        <div tw="flex justify-center my-6">Signal: 8,668</div>
+        <div tw="flex justify-center my-6">Signal: {currentSignal}</div>
         <div tw="flex justify-center mt-8">
           <Pfp url={owner.pfp_url} />
           <Pfp url={booker.pfp_url} />
@@ -78,7 +80,7 @@ const frameHandler = frames(async (ctx) => {
       aspectRatio: "1:1",
     },
     buttons: [
-      <Button action="post" target={{ pathname: "/", query: { signal: "+" } }}>
+      <Button action="link" target="google.com">
         Learn more ⇾
       </Button>,
       <Button action="post" target={{ pathname: "/signal" }}>
