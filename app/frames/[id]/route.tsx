@@ -31,16 +31,6 @@ const frameHandler = frames(async (ctx) => {
   // @ts-ignore
   const [owner, booker] = users;
 
-  const imgElement = () => {
-    if (ogData.data.twitterImage) {
-      return <img src={ogData.data.twitterImage[0].url} tw="" />;
-    } else if (ogData.data.ogImage) {
-      return <img src={ogData.data.ogImage[0].url} tw="w-full" />;
-    } else {
-      return null;
-    }
-  };
-
   const description = ogData.data.ogDescription;
   const siteName = ogData.data.ogSiteName || ogData.data.alIphoneAppName;
   const title = ogData.data.ogTitle;
@@ -54,7 +44,9 @@ const frameHandler = frames(async (ctx) => {
         }}
       >
         <InfoHeader users={users} booking={booking} />
-        {imgElement()}
+        {ogData.preprocessedImage && (
+          <img src={ogData.preprocessedImage} tw="w-full" />
+        )}}
         <div
           tw="py-4 px-5 flex flex-col"
           style={{
