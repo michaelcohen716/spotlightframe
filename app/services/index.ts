@@ -1,12 +1,12 @@
 import { createPublicClient, http, formatEther } from "viem";
 import { baseSepolia, base } from "viem/chains";
 import spotlightAbi from "./abi";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 import axios from 'axios'
 import { NeynarAPIClient } from '@neynar/nodejs-sdk';
 
 // todo: set up env
-dotenv.config();
+// dotenv.config();
 const apiKey = '8046353E-4ABA-4E55-B1B1-0E01E495584C'
 const client = new NeynarAPIClient(apiKey);
 
@@ -60,10 +60,10 @@ export const fetchBooking = async (bookingId: string) => {
 };
 
 
-// const baseUrl = isMainnet
-//   ? "https://spotlight-api-production-55e8.up.railway.app"
-//   : "https://spotlight-api-production.up.railway.app";
-const baseUrl = 'http://localhost:3001'
+const baseUrl = isMainnet
+  ? "https://spotlight-api-production-55e8.up.railway.app"
+  : "https://spotlight-api-production.up.railway.app";
+// const baseUrl = 'http://localhost:3001'
 
 export const signal = async() => {
   try {

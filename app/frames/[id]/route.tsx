@@ -5,6 +5,7 @@ import { fetchBooking, fetchPreview, fetchBulkUsers, getCurrentSignal } from "..
 import InfoHeader from "./InfoHeader";
 import { farcasterHubContext } from "frames.js/middleware";
 
+
 function Pfp({ url }: any) {
   return (
     <div tw="flex h-[50px] w-[50px] mx-1 rounded-full">
@@ -19,6 +20,7 @@ const frameHandler = frames(async (ctx) => {
   if (!activityId) throw Error("Invalid param");
   const { content, booking } = await fetchBooking(activityId);
   console.log('ctx', ctx);
+  console.log('booking', booking);
 
   const currentSignal = await getCurrentSignal(activityId)
 
@@ -48,23 +50,23 @@ const frameHandler = frames(async (ctx) => {
     image: (
       <div
         tw="flex flex-col h-[1000px]"
-        // style={{
-        //   fontFamily: "'Sora', sans-serif",
-        // }}
+        style={{
+          fontFamily: "'Sora', sans-serif",
+        }}
       >
         <InfoHeader users={users} booking={booking} />
         {imgElement()}
         <div
-          tw="p-3 flex flex-col"
+          tw="py-4 px-5 flex flex-col"
           style={{
-            backgroundColor: "lightgray",
+            backgroundColor: "#181A1C",
           }}
         >
-          <div tw="text-[28px]">{siteName}</div>
-          <div tw="font-bold text-[40px] my-3">{title}</div>
-          <div tw="text-[28px]">{description.slice(0, 75) + "..."}</div>
+          <div tw="text-[28px] text-[#9A9898]">{siteName}</div>
+          <div tw="font-bold text-[40px] my-3 text-white">{title}</div>
+          <div tw="text-[28px] text-[#CECDCD]">{description.slice(0, 75) + "..."}</div>
         </div>
-        <div tw="flex justify-center my-6">Signal: {currentSignal}</div>
+        <div tw="flex justify-center my-6 font-bold">Signal: {currentSignal}</div>
         <div tw="flex justify-center mt-8">
           <Pfp url={owner.pfp_url} />
           <Pfp url={booker.pfp_url} />
@@ -94,3 +96,4 @@ const frameHandler = frames(async (ctx) => {
 
 export const GET = frameHandler;
 export const POST = frameHandler;
+// export const runtime = "edge";
