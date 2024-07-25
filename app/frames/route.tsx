@@ -4,13 +4,6 @@ import { frames } from "./frames";
 import { appURL } from "../utils";
 
 const frameHandler = frames(async (ctx) => {
-  console.log('****ctx', ctx);
-  const counter = ctx.message
-    ? ctx.searchParams.op === "+"
-      ? ctx.state.counter + 1
-      : ctx.state.counter - 1
-    : ctx.state.counter;
-
   return {
     image: (
       <div tw="flex flex-col">
@@ -33,7 +26,7 @@ const frameHandler = frames(async (ctx) => {
         External
       </Button>,
     ],
-    state: { counter: counter },
+    state: { counter: 0, hasSignaled: false },
   };
 });
 
