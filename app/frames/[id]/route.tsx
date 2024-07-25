@@ -19,8 +19,6 @@ const frameHandler = frames(async (ctx) => {
   const activityId = split[split.length - 1];
   if (!activityId) throw Error("Invalid param");
   const { content, booking } = await fetchBooking(activityId);
-  console.log('ctx', ctx);
-  console.log('booking', booking);
 
   const currentSignal = await getCurrentSignal(activityId)
 
@@ -30,6 +28,7 @@ const frameHandler = frames(async (ctx) => {
     fetchPreview(content.link),
     fetchBulkUsers([ownerFid, bookerFid]),
   ]);
+  // @ts-ignore
   const [owner, booker] = users;
 
   const imgElement = () => {
@@ -96,4 +95,3 @@ const frameHandler = frames(async (ctx) => {
 
 export const GET = frameHandler;
 export const POST = frameHandler;
-// export const runtime = "edge";
