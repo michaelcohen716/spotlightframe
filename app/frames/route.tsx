@@ -11,7 +11,7 @@ const frameHandler = frames(async (ctx) => {
         {ctx.message?.inputText && (
           <div tw="flex">{`Input: ${ctx.message.inputText}`}</div>
         )}
-        <div tw="flex">Counter {counter}</div>
+        {/* <div tw="flex">Counter {counter}</div> */}
       </div>
     ),
     textInput: "Say something",
