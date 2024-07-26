@@ -38,12 +38,12 @@ function InfoHeader({ users, booking }: any) {
       </div>
       <div tw="flex flex-col text-[22px]">
         <div tw="flex">
-          <div>Booked by&nbsp;</div>
+          <div tw="flex">Booked by&nbsp;</div>
           <div tw="flex mx-1 text-[#1F28FF]">&nbsp;@{booker.username}{'  '}</div>
-          <div tw="mx-1">&nbsp;for&nbsp;</div>
+          <div tw="mx-1 flex">&nbsp;for&nbsp;</div>
           <div tw="flex text-[#1F28FF]">{formatPrice(booking.price)} ETH</div>
         </div>
-        <div tw="mt-1">
+        <div tw="mt-1 flex">
         {timeAgo.format(new Date(Number(booking.bookedTimestamp) * 1000))}
         </div>
       </div>

@@ -60,10 +60,10 @@ export const fetchBooking = async (bookingId: string) => {
 };
 
 
-// const baseUrl = isMainnet
-//   ? "https://spotlight-api-production-55e8.up.railway.app"
-//   : "https://spotlight-api-production.up.railway.app";
-const baseUrl = 'http://localhost:3001'
+const baseUrl = isMainnet
+  ? "https://spotlight-api-production-55e8.up.railway.app"
+  : "https://spotlight-api-production.up.railway.app";
+// const baseUrl = 'http://localhost:3001'
 
 export const signal = async() => {
   try {

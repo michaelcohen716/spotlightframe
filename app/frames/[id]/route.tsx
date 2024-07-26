@@ -13,7 +13,7 @@ import { farcasterHubContext } from "frames.js/middleware";
 function Pfp({ url }: any) {
   return (
     <div tw="flex h-[50px] w-[50px] mx-1 rounded-full">
-      <img src={url} alt="Profile" tw="h-full w-full rounded-full" />
+      <img src={url} alt="Profile" tw="h-full w-full rounded-full flex" />
     </div>
   );
 }
@@ -34,9 +34,6 @@ const frameHandler = frames(async (ctx) => {
   ]);
   // @ts-ignore
   const [owner, booker] = users;
-  console.log("ogData.data.twitterImage", ogData.data.twitterImage);
-  console.log("ogData.data.ogImage", ogData.data.ogImage);
-  console.log("ogData.preprocessedImage", ogData.preprocessedImage);
 
   const description = ogData.data.ogDescription;
   const siteName = ogData.data.ogSiteName || ogData.data.alIphoneAppName;
@@ -52,7 +49,7 @@ const frameHandler = frames(async (ctx) => {
       >
         <InfoHeader users={users} booking={booking} />
         {ogData.preprocessedImage && (
-          <img src={ogData.preprocessedImage} tw=" w-full" />
+          <img src={ogData.preprocessedImage} tw="flex w-full" />
         )}
         <div
           tw="py-4 px-5 flex flex-col"
@@ -60,9 +57,9 @@ const frameHandler = frames(async (ctx) => {
             backgroundColor: "#181A1C",
           }}
         >
-          <div tw="text-[24px] text-[#9A9898]">{siteName}</div>
-          <div tw="font-bold text-[34px] my-3 text-white">{title}</div>
-          <div tw="text-[24px] text-[#CECDCD]">{description.slice(0, 75) + "..."}</div>
+          <div tw="text-[24px] text-[#9A9898] flex">{siteName}</div>
+          <div tw="font-bold text-[34px] my-3 text-white flex">{title}</div>
+          <div tw="flex text-[24px] text-[#CECDCD]">{description.slice(0, 75) + "..."}</div>
         </div>
         <div tw="flex justify-around text-[36px] items-center bg-[#181A1C] text-white pt-4 pb-6">
           <div tw="flex font-extrabold">
@@ -76,7 +73,7 @@ const frameHandler = frames(async (ctx) => {
             <Pfp url={booker.pfp_url} />
             <Pfp url={owner.pfp_url} />
             <Pfp url={booker.pfp_url} />
-            <div tw="ml-2">and 8 others</div>
+            <div tw="ml-2 flex">and 8 others</div>
           </div>
         </div>
       </div>
@@ -88,6 +85,9 @@ const frameHandler = frames(async (ctx) => {
       <Button action="link" target="google.com">
         Learn more ⇾
       </Button>,
+      <Button action="link" target={ogData.data.referenceUrl}>
+        See link
+      </Button>,      
       <Button action="post" target={{ pathname: "/signal" }}>
         Signal 🗣
       </Button>,
