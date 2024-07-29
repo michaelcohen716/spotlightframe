@@ -12,9 +12,9 @@ export const frames = createFrames<State>({
   initialState: { hasSignaled: false },
   middleware: [farcasterHubContext(
     // only for testing. comment out for prod
-    {
-      hubHttpUrl: 'http://localhost:3010/hub'
-    }
+    // {
+    //   hubHttpUrl: 'http://localhost:3010/hub'
+    // }
   )],
   debug: process.env.NODE_ENV === "development",
   // imageRenderingOptions: async () => {
