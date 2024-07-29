@@ -60,26 +60,62 @@ export const fetchBooking = async (bookingId: string) => {
 };
 
 
-const baseUrl = isMainnet
-  ? "https://spotlight-api-production-55e8.up.railway.app"
-  : "https://spotlight-api-production.up.railway.app";
-// const baseUrl = 'http://localhost:3001'
+// const baseUrl = isMainnet
+//   ? "https://spotlight-api-production-55e8.up.railway.app"
+//   : "https://spotlight-api-production.up.railway.app";
+const baseUrl = 'http://localhost:3001'
 
-export const signal = async() => {
+
+const decodeFrameActionPayloadFromRequest = async(request:any) => {
   try {
-    const response = await axios.post(`${baseUrl}/signal`, {});
-  } catch(error){
+    // use clone just in case someone wants to read body somewhere along the way
+    const body = (await request
+      // .clone()
+      .json()
+      .catch(() => {
+        throw new Error();
+      })) as JSON;
 
+    // if (!isValidFrameActionPayload(body)) {
+    //   throw new InvalidFrameActionPayloadError();
+    // }
+
+    return body;
+  } catch (e) {
+    // if (
+    //   e instanceof RequestBodyNotJSONError ||
+    //   e instanceof InvalidFrameActionPayloadError
+    // ) {
+    //   return undefined;
+    // }
+
+    console.error(e);
+
+    return undefined;
+  }
+}
+
+export const signal = async(request: any) => {
+  const decoded = await decodeFrameActionPayloadFromRequest(request)
+  try {
+    const requestBody = {
+      request: decoded
+    }
+    const response = await axios.post(`${baseUrl}/signal`, requestBody);
+  } catch(error){
+    console.log('error', error);
   }
 }
 
 export const getCurrentSignal = async(activityId: string) => {
   try {
-    const response = await axios.post(`${baseUrl}/signal/${activityId}`, {});
-    return 4; // todo
+    const requestBody = {
+      postId: activityId
+    }
+    const response = await axios.post(`${baseUrl}/signal`, requestBody);
+    return response.data
   } catch(error){
-    return 4;
-
+    console.log('error', error);
   }
 }
 

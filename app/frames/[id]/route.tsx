@@ -59,12 +59,12 @@ const frameHandler = frames(async (ctx) => {
         >
           <div tw="text-[24px] text-[#9A9898] flex">{siteName}</div>
           <div tw="font-bold text-[34px] my-3 text-white flex">{title}</div>
-          <div tw="flex text-[24px] text-[#CECDCD]">{description.slice(0, 75) + "..."}</div>
+          <div tw="flex text-[24px] text-[#CECDCD]">
+            {description.slice(0, 75) + "..."}
+          </div>
         </div>
         <div tw="flex justify-around text-[36px] items-center bg-[#181A1C] text-white pt-4 pb-6">
-          <div tw="flex font-extrabold">
-            Signal: {currentSignal}
-          </div>
+          <div tw="flex font-extrabold">Signal: {currentSignal}</div>
 
           <div tw="flex justify-center">
             <Pfp url={owner.pfp_url} />
@@ -87,12 +87,15 @@ const frameHandler = frames(async (ctx) => {
       </Button>,
       <Button action="link" target={ogData.data.referenceUrl}>
         See link
-      </Button>,      
-      <Button action="post" target={{ pathname: "/signal" }}>
+      </Button>,
+      <Button
+        action="post"
+        target={{ pathname: "/signal", query: { activityId } }}
+      >
         Signal 🗣
       </Button>,
     ],
-    middleware: [farcasterHubContext()],
+    // middleware: [farcasterHubContext()],
     // state: { counter: counter },
   };
 });

@@ -10,7 +10,12 @@ type State = {
 export const frames = createFrames<State>({
   basePath: "/frames",
   initialState: { hasSignaled: false },
-  middleware: [farcasterHubContext()],
+  middleware: [farcasterHubContext(
+    // only for testing. comment out for prod
+    {
+      hubHttpUrl: 'http://localhost:3010/hub'
+    }
+  )],
   debug: process.env.NODE_ENV === "development",
   // imageRenderingOptions: async () => {
     // const soraFont = fetch(
