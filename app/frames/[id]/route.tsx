@@ -90,7 +90,7 @@ const frameHandler = frames(async (ctx) => {
       </Button>,
       <Button
         action="post"
-        target={{ pathname: "/signal", query: { activityId } }}
+        target={{ pathname: "/signal", query: { postId: activityId, fid: ownerFid } }}
       >
         Signal 🗣
       </Button>,

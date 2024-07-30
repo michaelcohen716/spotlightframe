@@ -70,36 +70,27 @@ const decodeFrameActionPayloadFromRequest = async(request:any) => {
   try {
     // use clone just in case someone wants to read body somewhere along the way
     const body = (await request
-      // .clone()
+      .clone()
       .json()
       .catch(() => {
         throw new Error();
       })) as JSON;
 
-    // if (!isValidFrameActionPayload(body)) {
-    //   throw new InvalidFrameActionPayloadError();
-    // }
-
     return body;
   } catch (e) {
-    // if (
-    //   e instanceof RequestBodyNotJSONError ||
-    //   e instanceof InvalidFrameActionPayloadError
-    // ) {
-    //   return undefined;
-    // }
-
     console.error(e);
-
     return undefined;
   }
 }
 
-export const signal = async(request: any) => {
+export const signal = async(request: any, postId:any, fid:any) => {
   const decoded = await decodeFrameActionPayloadFromRequest(request)
+  console.log('decoded', decoded);
   try {
     const requestBody = {
-      request: decoded
+      request: decoded,
+      postId,
+      fid
     }
     const response = await axios.post(`${baseUrl}/signal`, requestBody);
   } catch(error){

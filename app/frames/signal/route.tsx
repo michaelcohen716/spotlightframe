@@ -11,8 +11,12 @@ const handleRequest = frames(async (ctx) => {
   //   // when post_redirect button is clicked you must return a redirect response
   //   return redirect("https://google.com");
   // }
-  console.log('ctx:signal', ctx);
-  const signalResp = await signal(ctx.request)
+  console.log("ctx:signal", ctx);
+  const signalResp = await signal(
+    ctx.request,
+    ctx.searchParams.postId,
+    ctx.searchParams.fid
+  );
 
   return {
     image: (
