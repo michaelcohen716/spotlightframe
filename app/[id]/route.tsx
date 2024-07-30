@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-key */
 import { Button } from "frames.js/next";
-import { frames } from "../frames";
+import { frames } from "../frames/frames";
 import {
   fetchBooking,
   fetchPreview,
   fetchBulkUsers,
   getCurrentSignal,
-} from "../../services";
+} from "../services";
 import InfoHeader from "./InfoHeader";
 import { farcasterHubContext } from "frames.js/middleware";
 
@@ -28,10 +28,16 @@ const frameHandler = frames(async (ctx) => {
 
   const bookerFid = Number((booking as any).bookerFid);
   const ownerFid = activityId.split("-")[0];
-  const [ogData, users] = await Promise.all([
+  const [ogData, users, signalers] = await Promise.all([
     fetchPreview(content.link),
     fetchBulkUsers([ownerFid, bookerFid]),
+    fetchBulkUsers(
+      currentSignal?.signals.length
+        ? currentSignal.signals.slice(0,7).map((s: any) => s.fid)
+        : []
+    ),
   ]);
+
   // @ts-ignore
   const [owner, booker] = users;
 
@@ -64,16 +70,17 @@ const frameHandler = frames(async (ctx) => {
           </div>
         </div>
         <div tw="flex justify-around text-[36px] items-center bg-[#181A1C] text-white pt-4 pb-6">
-          <div tw="flex font-extrabold">Signal: {currentSignal?.signalValue}</div>
+          <div tw="flex font-extrabold">
+            Signal: {Math.round(currentSignal?.signalValue)}
+          </div>
 
           <div tw="flex justify-center">
-            <Pfp url={owner.pfp_url} />
-            <Pfp url={booker.pfp_url} />
-            <Pfp url={owner.pfp_url} />
-            <Pfp url={booker.pfp_url} />
-            <Pfp url={owner.pfp_url} />
-            <Pfp url={booker.pfp_url} />
-            <div tw="ml-2 flex">and 8 others</div>
+          {/* @ts-ignore */}
+            {signalers.length > 0 && signalers.map((s:any, i:any) => {
+              return (
+                <Pfp url={s.pfp_url} key={i}/>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -90,7 +97,10 @@ const frameHandler = frames(async (ctx) => {
       </Button>,
       <Button
         action="post"
-        target={{ pathname: "/signal", query: { postId: activityId, fid: ownerFid } }}
+        target={{
+          pathname: "/signal",
+          query: { postId: activityId, fid: ownerFid },
+        }}
       >
         Signal 🗣
       </Button>,
