@@ -64,7 +64,7 @@ const frameHandler = frames(async (ctx) => {
           </div>
         </div>
         <div tw="flex justify-around text-[36px] items-center bg-[#181A1C] text-white pt-4 pb-6">
-          <div tw="flex font-extrabold">Signal: {currentSignal}</div>
+          <div tw="flex font-extrabold">Signal: {currentSignal?.signalValue}</div>
 
           <div tw="flex justify-center">
             <Pfp url={owner.pfp_url} />
