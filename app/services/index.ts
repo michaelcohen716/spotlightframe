@@ -83,16 +83,15 @@ const decodeFrameActionPayloadFromRequest = async(request:any) => {
   }
 }
 
-export const signal = async(request: any, postId:any, fid:any) => {
+export const signal = async(request: any, postId:any) => {
   const decoded = await decodeFrameActionPayloadFromRequest(request)
-  console.log('decoded', decoded);
   try {
     const requestBody = {
       request: decoded,
-      postId,
-      fid
     }
-    const response = await axios.post(`${baseUrl}/signal`, requestBody);
+    const response = await axios.post(`${baseUrl}/signal/${postId}`, requestBody);
+    console.log('response', response);
+    return response.data
   } catch(error){
     console.log('error', error);
   }
@@ -100,10 +99,7 @@ export const signal = async(request: any, postId:any, fid:any) => {
 
 export const getCurrentSignal = async(activityId: string) => {
   try {
-    const requestBody = {
-      postId: activityId
-    }
-    const response = await axios.post(`${baseUrl}/signal`, requestBody);
+    const response = await axios.get(`${baseUrl}/signal/${activityId}`);
     return response.data
   } catch(error){
     console.log('error', error);
