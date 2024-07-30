@@ -6,7 +6,6 @@ import { signal } from "../../services";
 
 const handleRequest = frames(async (ctx) => {
   const signalResp = await signal(ctx.request);
-  console.log('ctx.searchParams', ctx.searchParams);
   return {
     image: (
       <div tw="flex flex-col">

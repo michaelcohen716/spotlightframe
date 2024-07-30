@@ -32,14 +32,11 @@ const frameHandler = frames(async (ctx) => {
     fetchPreview(content.link),
     fetchBulkUsers([ownerFid, bookerFid]),
     fetchBulkUsers(
-      currentSignal?.signals.length
-        ? currentSignal.signals.slice(0,7).map((s: any) => s.fid)
+      currentSignal?.signals && currentSignal.signals.length
+        ? currentSignal.signals.slice(0, 7).map((s: any) => s.fid)
         : []
     ),
   ]);
-
-  // @ts-ignore
-  const [owner, booker] = users;
 
   const description = ogData.data.ogDescription;
   const siteName = ogData.data.ogSiteName || ogData.data.alIphoneAppName;
@@ -74,14 +71,16 @@ const frameHandler = frames(async (ctx) => {
             Signal: {Math.round(currentSignal?.signalValue)}
           </div>
 
-          <div tw="flex justify-center">
           {/* @ts-ignore */}
-            {signalers.length > 0 && signalers.map((s:any, i:any) => {
+          {signalers?.length > 0 &&
+          // @ts-ignore
+            signalers.map((s: any, i: any) => {
               return (
-                <Pfp url={s.pfp_url} key={i}/>
-              )
+                <div tw="flex justify-center">
+                  <Pfp url={s.pfp_url} key={i} />
+                </div>
+              );
             })}
-          </div>
         </div>
       </div>
     ),
