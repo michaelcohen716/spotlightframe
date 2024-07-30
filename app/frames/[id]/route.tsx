@@ -82,10 +82,10 @@ const frameHandler = frames(async (ctx) => {
       aspectRatio: "1:1",
     },
     buttons: [
-      <Button action="link" target="google.com">
+      <Button action="link" target="https://docs.onspotlight.app">
         Learn more ⇾
       </Button>,
-      <Button action="link" target={ogData.data.referenceUrl}>
+      <Button action="link" target={ogData.data.requestUrl}>
         See link
       </Button>,
       <Button
@@ -95,8 +95,6 @@ const frameHandler = frames(async (ctx) => {
         Signal 🗣
       </Button>,
     ],
-    // middleware: [farcasterHubContext()],
-    // state: { counter: counter },
   };
 });
 

@@ -85,6 +85,7 @@ const decodeFrameActionPayloadFromRequest = async(request:any) => {
 
 export const signal = async(request: any, postId:any) => {
   const decoded = await decodeFrameActionPayloadFromRequest(request)
+  console.log('postId', postId);
   try {
     const requestBody = {
       request: decoded,
