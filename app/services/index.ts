@@ -11,9 +11,9 @@ const apiKey = '8046353E-4ABA-4E55-B1B1-0E01E495584C'
 const client = new NeynarAPIClient(apiKey);
 
 // toggle
-const isMainnet = false;
+const isMainnet = true;
 
-const SPOTLIGHT_ADDRESS_MAINNET = "0x76A1fd10812D1a805952d489FcdB5b2e611A946a";
+const SPOTLIGHT_ADDRESS_MAINNET = "0x4aBDc4cFd98fC6eaa21514AB3005F0310E255b65";
 const SPOTLIGHT_ADDRESS_SEPOLIA = "0x8Ee94755A261b6022230ac1e57ECd986C9B2fAd5";
 
 const SPOTLIGHT_ADDRESS = isMainnet
