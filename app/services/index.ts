@@ -83,13 +83,13 @@ const decodeFrameActionPayloadFromRequest = async(request:any) => {
   }
 }
 
-export const signal = async(request: any, postId:any) => {
+export const signal = async(request: any) => {
   const decoded = await decodeFrameActionPayloadFromRequest(request)
   try {
     const requestBody = {
       request: decoded,
     }
-    const url = `${baseUrl}/signal/${postId}`
+    const url = `${baseUrl}/signal`
     const response = await axios.post(url, requestBody);
     return response.data
   } catch(error){

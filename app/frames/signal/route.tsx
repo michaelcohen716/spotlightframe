@@ -14,7 +14,6 @@ const handleRequest = frames(async (ctx) => {
   // console.log("ctx:signal", ctx);
   const signalResp = await signal(
     ctx.request,
-    ctx.searchParams.postId
   );
 
   return {
