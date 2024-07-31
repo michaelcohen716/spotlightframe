@@ -1,14 +1,13 @@
 /* eslint-disable react/jsx-key */
 import { Button } from "frames.js/next";
-import { frames } from "../frames/frames";
 import {
   fetchBooking,
-  fetchPreview,
   fetchBulkUsers,
+  fetchPreview,
   getCurrentSignal,
-} from "../services";
+} from "../../services";
+import { frames } from "../frames";
 import InfoHeader from "./InfoHeader";
-import { farcasterHubContext } from "frames.js/middleware";
 
 function Pfp({ url }: any) {
   return (
@@ -19,7 +18,8 @@ function Pfp({ url }: any) {
 }
 
 const frameHandler = frames(async (ctx) => {
-  const split = ctx.url.href.split("/");
+  const split = ctx.url.pathname.split("/");
+  // console.log("🚀 ~ frameHandler ~ ctx.url:", ctx.url)
   const activityId = split[split.length - 1];
   if (!activityId) throw Error("Invalid param");
   const { content, booking } = await fetchBooking(activityId);
@@ -73,7 +73,7 @@ const frameHandler = frames(async (ctx) => {
 
           {/* @ts-ignore */}
           {signalers?.length > 0 &&
-          // @ts-ignore
+            // @ts-ignore
             signalers.map((s: any, i: any) => {
               return (
                 <div tw="flex justify-center">
@@ -86,6 +86,8 @@ const frameHandler = frames(async (ctx) => {
     ),
     imageOptions: {
       aspectRatio: "1:1",
+      width: 600,
+      height: 600
     },
     buttons: [
       <Button action="link" target="https://docs.onspotlight.app">

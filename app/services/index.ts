@@ -28,17 +28,27 @@ const publicClient = createPublicClient({
   ),
 });
 
+interface Booking {
+  booked: boolean;
+  bookerFid: bigint;
+  bookedTimestamp: bigint;
+  price: bigint;
+  contentUri: string;
+}
+
 const getBooking = async (bookingId: string) => {
   const split = bookingId.split("-");
   const spotlightOwnerFid = split[0];
   const sequentialDay = split[1];
+
   const booking = await publicClient.readContract({
     address: SPOTLIGHT_ADDRESS,
     abi: spotlightAbi,
     functionName: "getSpotlightBooking",
     args: [spotlightOwnerFid || "", sequentialDay || ""],
   });
-  return booking;
+
+  return booking as Booking;
 };
 
 const fetchIpfsContent = async (uri: string) => {
@@ -52,7 +62,12 @@ const fetchIpfsContent = async (uri: string) => {
 
 export const fetchBooking = async (bookingId: string) => {
   const booking = await getBooking(bookingId);
-  const content = await fetchIpfsContent((booking as any).contentUri);
+  const contentUri = (booking as any).contentUri
+  if (!contentUri) {
+    throw new Error("Booking is not valid")
+  }
+
+  const content = await fetchIpfsContent(contentUri);
   return {
     content,
     booking
@@ -66,7 +81,7 @@ const baseUrl = isMainnet
 // const baseUrl = 'http://localhost:3001'
 
 
-const decodeFrameActionPayloadFromRequest = async(request:any) => {
+const decodeFrameActionPayloadFromRequest = async (request: any) => {
   try {
     // use clone just in case someone wants to read body somewhere along the way
     const body = (await request
@@ -83,7 +98,7 @@ const decodeFrameActionPayloadFromRequest = async(request:any) => {
   }
 }
 
-export const signal = async(request: any) => {
+export const signal = async (request: any) => {
   const decoded = await decodeFrameActionPayloadFromRequest(request)
   try {
     const requestBody = {
@@ -92,16 +107,16 @@ export const signal = async(request: any) => {
     const url = `${baseUrl}/signal`
     const response = await axios.post(url, requestBody);
     return response.data
-  } catch(error){
+  } catch (error) {
     console.log('error', error);
   }
 }
 
-export const getCurrentSignal = async(activityId: string) => {
+export const getCurrentSignal = async (activityId: string) => {
   try {
     const response = await axios.get(`${baseUrl}/signal/${activityId}`);
     return response.data
-  } catch(error){
+  } catch (error) {
     console.log('error', error);
   }
 }
@@ -118,11 +133,11 @@ export const fetchPreview = async (url: string) => {
   }
 };
 
-export const fetchBulkUsers = async(arrayOfFids: any[]) => {
+export const fetchBulkUsers = async (arrayOfFids: any[]) => {
   try {
     const data = await client.fetchBulkUsers(arrayOfFids)
     return data.users
-  }catch(e){
+  } catch (e) {
     return e
   }
 }

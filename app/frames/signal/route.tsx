@@ -5,7 +5,11 @@ import { frames } from "../frames";
 import { signal } from "../../services";
 
 const handleRequest = frames(async (ctx) => {
-  const signalResp = await signal(ctx.request);
+  // const signalResp = await signal(ctx.request);
+
+  const id = "3635-32"
+  console.log("🚀 ~ handleRequest ~ id:", id)
+
   return {
     image: (
       <div tw="flex flex-col">
@@ -13,7 +17,7 @@ const handleRequest = frames(async (ctx) => {
       </div>
     ),
     buttons: [
-      <Button action="post" target={`/${ctx.searchParams.postId}`}>
+      <Button action="post" target={`/${id}`}>
         Back to post
       </Button>,
     ],
