@@ -25,6 +25,7 @@ const frameHandler = frames(async (ctx) => {
   const { content, booking } = await fetchBooking(activityId);
 
   const currentSignal = await getCurrentSignal(activityId);
+  console.log('currentsignal',currentSignal);
 
   const bookerFid = Number((booking as any).bookerFid);
   const ownerFid = activityId.split("-")[0];
