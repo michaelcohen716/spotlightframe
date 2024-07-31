@@ -10,8 +10,8 @@ const handleRequest = frames(async (ctx) => {
   // console.log('ctx', ctx);
 
   const message = () => {
-    if (signalResp?.message == "Invalid action") {
-      return "Invalid signal"
+    if (signalResp && 'message' in signalResp && signalResp.message === "Invalid action") {
+      return "Invalid signal";
     }
     
   };
