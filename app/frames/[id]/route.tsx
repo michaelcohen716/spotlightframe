@@ -70,7 +70,7 @@ const frameHandler = frames(async (ctx) => {
           )}
         </div>
         <div tw="flex justify-around text-[36px] items-center bg-[#181A1C] text-white pt-4 pb-6">
-          <div tw="flex font-extrabold">
+          <div tw="flex font-bold">
             Signal: {Math.round(currentSignal?.signalValue)}
           </div>
 
