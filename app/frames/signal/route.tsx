@@ -13,7 +13,7 @@ const handleRequest = frames(async (ctx) => {
     if (signalResp && 'message' in signalResp && signalResp.message === "Invalid action") {
       return "Invalid signal";
     }
-    
+    return "Signal confirmed!"
   };
 
   return {

@@ -33,7 +33,7 @@ function InfoHeader({ users, booking }: any) {
         </div>
         <div tw="flex flex-col ml-3 mt-[-8px]">
           <div tw="flex">{owner.display_name}</div>
-          <div tw="flex text-[24px] text-[#9A9898]">@{owner.username}</div>
+          <div tw="flex text-[28px] text-[#9A9898]">@{owner.username}</div>
         </div>
       </div>
       {/* <div tw="flex flex-col text-[22px]">
