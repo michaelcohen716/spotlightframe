@@ -1,14 +1,13 @@
 /* eslint-disable react/jsx-key */
 import { Button } from "frames.js/next";
-import { frames } from "../frames/frames";
 import {
   fetchBooking,
-  fetchPreview,
   fetchBulkUsers,
+  fetchPreview,
   getCurrentSignal,
-} from "../services";
+} from "../../services";
+import { frames } from "../frames";
 import InfoHeader from "./InfoHeader";
-import { farcasterHubContext } from "frames.js/middleware";
 
 function Pfp({ url }: any) {
   return (
@@ -19,7 +18,8 @@ function Pfp({ url }: any) {
 }
 
 const frameHandler = frames(async (ctx) => {
-  const split = ctx.url.href.split("/");
+  const split = ctx.url.pathname.split("/");
+  // console.log("🚀 ~ frameHandler ~ ctx.url:", ctx.url)
   const activityId = split[split.length - 1];
   if (!activityId) throw Error("Invalid param");
   const { content, booking } = await fetchBooking(activityId);
@@ -39,6 +39,7 @@ const frameHandler = frames(async (ctx) => {
   ]);
 
   const description = ogData.data.ogDescription;
+  console.log("ogData", ogData);
   const siteName = ogData.data.ogSiteName || ogData.data.alIphoneAppName;
   const title = ogData.data.ogTitle;
 
@@ -52,7 +53,7 @@ const frameHandler = frames(async (ctx) => {
       >
         <InfoHeader users={users} booking={booking} />
         {ogData.preprocessedImage && (
-          <img src={ogData.preprocessedImage} tw="flex w-full" />
+          <img src={ogData.preprocessedImage} tw="w-full max-h-[800px]" />
         )}
         <div
           tw="py-4 px-5 flex flex-col"
@@ -62,9 +63,11 @@ const frameHandler = frames(async (ctx) => {
         >
           <div tw="text-[24px] text-[#9A9898] flex">{siteName}</div>
           <div tw="font-bold text-[34px] my-3 text-white flex">{title}</div>
-          <div tw="flex text-[24px] text-[#CECDCD]">
-            {description.slice(0, 75) + "..."}
-          </div>
+          {description?.length > 0 && (
+            <div tw="flex text-[24px] text-[#CECDCD]">
+              {description.slice(0, 75) + "..."}
+            </div>
+          )}
         </div>
         <div tw="flex justify-around text-[36px] items-center bg-[#181A1C] text-white pt-4 pb-6">
           <div tw="flex font-extrabold">
@@ -73,7 +76,7 @@ const frameHandler = frames(async (ctx) => {
 
           {/* @ts-ignore */}
           {signalers?.length > 0 &&
-          // @ts-ignore
+            // @ts-ignore
             signalers.map((s: any, i: any) => {
               return (
                 <div tw="flex justify-center">

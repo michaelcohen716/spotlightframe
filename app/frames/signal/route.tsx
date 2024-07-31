@@ -6,10 +6,25 @@ import { signal } from "../../services";
 
 const handleRequest = frames(async (ctx) => {
   const signalResp = await signal(ctx.request);
+  console.log("signalResp", signalResp);
+  // console.log('ctx', ctx);
+
+  const message = () => {
+    if (signalResp && 'message' in signalResp && signalResp.message === "Invalid action") {
+      return "Invalid signal";
+    }
+    
+  };
+
   return {
     image: (
       <div tw="flex flex-col">
-        <div tw="flex">Signal confirmed!</div>
+        <div
+          style={{ fontFamily: "Sora", fontSize: "40", fontWeight: "bold" }}
+          tw="flex"
+        >
+          {message()}
+        </div>
       </div>
     ),
     buttons: [

@@ -3,11 +3,13 @@ import { Button } from "frames.js/next";
 import { frames } from "./frames";
 import { appURL } from "../utils";
 
+export const runtime = "nodejs";
+
 const frameHandler = frames(async (ctx) => {
   return {
     image: (
       <div tw="flex flex-col">
-        <div tw="flex">frames.js starter</div>
+        <div style={{ fontFamily: "Sora" }} tw="flex">frames.js starter</div>
         {ctx.message?.inputText && (
           <div tw="flex">{`Input: ${ctx.message.inputText}`}</div>
         )}
