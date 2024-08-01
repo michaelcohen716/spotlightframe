@@ -17,13 +17,27 @@ function Pfp({ url }: any) {
   );
 }
 
+function formatNumberWithCommas(value: number) {
+  const stringValue = value.toString();
+  const [integerPart, decimalPart] = stringValue.split(".");
+  // @ts-ignore
+  const formattedIntegerPart = integerPart.replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    ","
+  );
+  return decimalPart
+    ? `${formattedIntegerPart}.${decimalPart}`
+    : formattedIntegerPart;
+}
+
 const frameHandler = frames(async (ctx) => {
   const split = ctx.url.pathname.split("/");
   const activityId = split[split.length - 1];
   if (!activityId) throw Error("Invalid param");
   const { content, booking } = await fetchBooking(activityId);
 
-  const currentSignal = await getCurrentSignal(activityId);
+  // const currentSignal = await getCurrentSignal(activityId);
+  const [currentSignal] = await Promise.all([getCurrentSignal(activityId)]);
   console.log("currentsignal", currentSignal);
 
   const bookerFid = Number((booking as any).bookerFid);
@@ -71,7 +85,10 @@ const frameHandler = frames(async (ctx) => {
         </div>
         <div tw="flex justify-around text-[36px] items-center bg-[#181A1C] text-white pt-4 pb-6">
           <div tw="flex font-bold w-1/2 text-center justify-center">
-            Signal: {Math.round((currentSignal as any).signalValue)}
+            Signal:{" "}
+            {formatNumberWithCommas(
+              Math.round((currentSignal as any).signalValue)
+            )}
           </div>
 
           {/* @ts-ignore */}
