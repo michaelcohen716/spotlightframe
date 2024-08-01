@@ -11,7 +11,7 @@ import InfoHeader from "./InfoHeader";
 
 function Pfp({ url }: any) {
   return (
-    <div tw="flex h-[50px] w-[50px] mx-1 rounded-full">
+    <div tw="flex h-[60px] w-[60px] mx-1 rounded-full">
       <img src={url} alt="Profile" tw="h-full w-full rounded-full flex" />
     </div>
   );
@@ -19,13 +19,12 @@ function Pfp({ url }: any) {
 
 const frameHandler = frames(async (ctx) => {
   const split = ctx.url.pathname.split("/");
-  // console.log("🚀 ~ frameHandler ~ ctx.url:", ctx.url)
   const activityId = split[split.length - 1];
   if (!activityId) throw Error("Invalid param");
   const { content, booking } = await fetchBooking(activityId);
 
   const currentSignal = await getCurrentSignal(activityId);
-  console.log('currentsignal',currentSignal);
+  console.log("currentsignal", currentSignal);
 
   const bookerFid = Number((booking as any).bookerFid);
   const ownerFid = activityId.split("-")[0];
@@ -71,20 +70,23 @@ const frameHandler = frames(async (ctx) => {
           )}
         </div>
         <div tw="flex justify-around text-[36px] items-center bg-[#181A1C] text-white pt-4 pb-6">
-          <div tw="flex font-bold">
-            Signal: {Math.round(currentSignal?.signalValue)}
+          <div tw="flex font-bold w-1/2 text-center justify-center">
+            Signal: {Math.round((currentSignal as any).signalValue)}
           </div>
 
           {/* @ts-ignore */}
-          {signalers?.length > 0 &&
-            // @ts-ignore
-            signalers.map((s: any, i: any) => {
-              return (
-                <div tw="flex justify-center">
-                  <Pfp url={s.pfp_url} key={i} />
-                </div>
-              );
-            })}
+          {signalers?.length > 0 && (
+            <div tw="w-1/2 flex justify-center">
+              {/* @ts-ignore */}
+              {signalers.map((s: any, i: any) => {
+                return (
+                  <div tw="flex justify-center">
+                    <Pfp url={s.pfp_url} key={i} />
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     ),
