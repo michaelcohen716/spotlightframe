@@ -109,6 +109,9 @@ const frameHandler = frames(async (ctx) => {
     ),
     imageOptions: {
       aspectRatio: "1:1",
+      headers: {
+        "Cache-Control": "public, max-age=2",
+      },
     },
     buttons: [
       <Button action="link" target="https://docs.onspotlight.app">
