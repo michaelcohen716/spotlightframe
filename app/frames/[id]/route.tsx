@@ -58,7 +58,8 @@ const frameHandler = frames(async (ctx) => {
   const siteName = ogData.data.ogSiteName || ogData.data.alIphoneAppName;
   const title = ogData.data.ogTitle;
   console.log('ogData.preprocessedImage', ogData.preprocessedImage);
-
+  const timestamp = new Date().getTime();
+  
   return {
     image: (
       <div
@@ -69,8 +70,8 @@ const frameHandler = frames(async (ctx) => {
       >
         <InfoHeader users={users} booking={booking} />
         {ogData.preprocessedImage && (
-          <img src={ogData.preprocessedImage} tw="" />
-          // <img src={ogData.preprocessedImage} tw="w-full max-w-[1000px] h-[625px]" />
+          // <img src={ogData.preprocessedImage} tw="" />
+          <img src={`${ogData.preprocessedImage}?timestamp=${timestamp}`} tw="" />
         )}
         <div
           tw="py-4 px-5 flex flex-col"
