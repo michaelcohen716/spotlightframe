@@ -54,8 +54,10 @@ const frameHandler = frames(async (ctx) => {
 
   const description = ogData.data.ogDescription;
   console.log("ogData", ogData);
+  console.log("ogData.data.ogImage[0]", ogData.data.ogImage[0]);
   const siteName = ogData.data.ogSiteName || ogData.data.alIphoneAppName;
   const title = ogData.data.ogTitle;
+  console.log('ogData.preprocessedImage', ogData.preprocessedImage);
 
   return {
     image: (
@@ -67,7 +69,8 @@ const frameHandler = frames(async (ctx) => {
       >
         <InfoHeader users={users} booking={booking} />
         {ogData.preprocessedImage && (
-          <img src={ogData.preprocessedImage} tw="w-full max-h-[800px]" />
+          <img src={ogData.preprocessedImage} tw="" />
+          // <img src={ogData.preprocessedImage} tw="w-full max-w-[1000px] h-[625px]" />
         )}
         <div
           tw="py-4 px-5 flex flex-col"
@@ -109,9 +112,9 @@ const frameHandler = frames(async (ctx) => {
     ),
     imageOptions: {
       aspectRatio: "1:1",
-      // headers: {
-      //   "Cache-Control": "public, max-age=2",
-      // },
+      headers: {
+        "Cache-Control": "public, max-age=60",
+      },
     },
     buttons: [
       <Button action="link" target="https://docs.onspotlight.app">

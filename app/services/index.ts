@@ -14,6 +14,12 @@ const client = new NeynarAPIClient(apiKey);
 // const isMainnet = false;
 const isMainnet = true;
 
+// toggle
+// const baseUrl = isMainnet
+//   ? "https://spotlight-api-production-55e8.up.railway.app"
+//   : "https://spotlight-api-production.up.railway.app";
+const baseUrl = 'http://localhost:3001'
+
 const SPOTLIGHT_ADDRESS_MAINNET = "0x4aBDc4cFd98fC6eaa21514AB3005F0310E255b65";
 const SPOTLIGHT_ADDRESS_SEPOLIA = "0x8Ee94755A261b6022230ac1e57ECd986C9B2fAd5";
 
@@ -76,10 +82,6 @@ export const fetchBooking = async (bookingId: string) => {
 };
 
 
-const baseUrl = isMainnet
-  ? "https://spotlight-api-production-55e8.up.railway.app"
-  : "https://spotlight-api-production.up.railway.app";
-// const baseUrl = 'http://localhost:3001'
 
 
 const decodeFrameActionPayloadFromRequest = async (request: any) => {
