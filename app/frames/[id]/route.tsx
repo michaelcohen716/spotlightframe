@@ -59,7 +59,7 @@ const frameHandler = frames(async (ctx) => {
   const title = ogData.data.ogTitle;
   console.log('ogData.preprocessedImage', ogData.preprocessedImage);
   const timestamp = new Date().getTime();
-  
+
   return {
     image: (
       <div
@@ -114,7 +114,7 @@ const frameHandler = frames(async (ctx) => {
     imageOptions: {
       aspectRatio: "1:1",
       headers: {
-        "Cache-Control": "public, max-age=60",
+        "Cache-Control": "public, max-age=0",
       },
     },
     buttons: [
