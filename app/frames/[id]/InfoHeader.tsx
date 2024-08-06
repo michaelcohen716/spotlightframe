@@ -20,7 +20,7 @@ function InfoHeader({ users, booking }: any) {
     <div
       tw="flex px-4 py-4 justify-between"
       style={{
-        marginTop: "-60px",
+        marginTop: "-40px",
       }}
     >
       <div tw="flex">
