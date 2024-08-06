@@ -110,7 +110,7 @@ export const signal = async (request: any) => {
     }
     const url = `${baseUrl}/signal`
     const response = await axios.post(url, requestBody);
-    return response
+    return response.data
   } catch (error) {
     console.log('error', error);
     return {
