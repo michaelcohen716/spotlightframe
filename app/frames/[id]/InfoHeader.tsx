@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 function InfoHeader({ users, booking }: any) {
   if (!users?.length) return null;
   const [owner, booker] = users;

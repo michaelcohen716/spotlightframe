@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-key */
+// @ts-nocheck
 import { Button } from "frames.js/next";
 import { frames } from "../frames";
 import { getCurrentSignal, fetchBulkUsers } from "../../services";

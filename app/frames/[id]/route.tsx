@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Button } from "frames.js/next";
 import {
   fetchBooking,

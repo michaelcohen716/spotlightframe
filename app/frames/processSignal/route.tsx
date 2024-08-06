@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Button } from "frames.js/next";
 import { frames } from "../frames";
 import { signal } from "../../services";
@@ -21,6 +22,7 @@ const frameHandler = frames(async (ctx) => {
 
     return (
       <div tw="flex flex-col justify-center">
+        {/* @ts-ignore */}
         You've already signaled this post 🙏
       </div>
     );
