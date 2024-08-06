@@ -38,8 +38,8 @@ const handleRequest = frames(async (ctx) => {
             {/* @ts-ignore */}
             {signalers.map((s: any, i: any) => {
               return (
-                <div tw="flex justify-center">
-                  <Pfp url={s.pfp_url} key={s.fid || i} />
+                <div tw="flex justify-center" key={i}>
+                  <Pfp url={s.pfp_url}  />
                 </div>
               );
             })}
