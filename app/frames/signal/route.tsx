@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-key */
 import { Button } from "frames.js/next";
-import { redirect } from "frames.js/core";
 import { frames } from "../frames";
-import { signal, getCurrentSignal, fetchBulkUsers } from "../../services";
+import { getCurrentSignal, fetchBulkUsers } from "../../services";
 
 function Pfp({ url }: any) {
   return (
@@ -19,7 +18,8 @@ const handleRequest = frames(async (ctx) => {
 
   const signalers = await fetchBulkUsers(
     currentSignal?.signals && currentSignal.signals.length
-      ? currentSignal.signals.slice(0, 7).map((s: any) => s.fid)
+      ? // @ts-ignore
+        currentSignal.signals.slice(0, 7).map((s: any) => s.fid)
       : []
   );
   console.log("signalers", signalers);

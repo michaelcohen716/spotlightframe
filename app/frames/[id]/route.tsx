@@ -3,7 +3,6 @@ import {
   fetchBooking,
   fetchBulkUsers,
   fetchPreview,
-  getCurrentSignal,
 } from "../../services";
 import { frames } from "../frames";
 import InfoHeader from "./InfoHeader";
@@ -14,18 +13,11 @@ const frameHandler = frames(async (ctx) => {
   if (!activityId) throw Error("Invalid param");
   const { content, booking } = await fetchBooking(activityId);
 
-  const currentSignal = await getCurrentSignal(activityId);
-
   const bookerFid = Number((booking as any).bookerFid);
   const ownerFid = activityId.split("-")[0];
-  const [ogData, users, signalers] = await Promise.all([
+  const [ogData, users] = await Promise.all([
     fetchPreview(content.link),
     fetchBulkUsers([ownerFid, bookerFid]),
-    fetchBulkUsers(
-      currentSignal?.signals && currentSignal.signals.length
-        ? currentSignal.signals.slice(0, 7).map((s: any) => s.fid)
-        : []
-    ),
   ]);
 
   const description = ogData.data.ogDescription;
