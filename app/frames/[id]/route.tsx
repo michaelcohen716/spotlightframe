@@ -64,18 +64,19 @@ const frameHandler = frames(async (ctx) => {
       <Button action="link" target={ogData.data.requestUrl}>
         See link
       </Button>,
+      <Button action="link" target="https://onspotlight.app">
+        Go to Spotlight
+      </Button>,
       <Button
-        action="post"
-        target={{
-          pathname: "/signal",
-          query: { activityId },
-        }}
-      >
-        Go to Signal Page
-      </Button>,
-      <Button action="link" target="https://docs.onspotlight.app">
-        Learn more ⇾
-      </Button>,
+      action="post"
+      target={{
+        pathname: "/processSignal",
+        query: { activityId },
+      }}
+    >
+      Signal 🗣 this post
+    </Button>,
+   
     ],
   };
 });
