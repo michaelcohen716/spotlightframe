@@ -42,11 +42,11 @@ const frameHandler = frames(async (ctx) => {
     // @ts-ignore
     if (success) {
       return (
-        <div tw="flex flex-col justify-center">
-          <div>Confirmed!</div>
-          <div className="mt-4">
+        <div tw="flex flex-col justify-center items-center">
+          <div tw="text-center my-3">Signal Confirmed!</div>
+          <div tw="mt-4 flex">
             {/* @ts-ignore */}
-            ++ {Math.round(signalValue)} signal score!
+            Your signal: +{Math.round(signalValue)}
           </div>
         </div>
       );
@@ -69,7 +69,7 @@ const frameHandler = frames(async (ctx) => {
       >
         {message()}
         <div tw="flex font-bold my-3 text-center justify-center">
-          Signal Score: {formatNumberWithCommas(Math.round(newSignalValue))}
+          New Signal Score: {formatNumberWithCommas(Math.round(newSignalValue))}
         </div>
         {/* @ts-ignore */}
         {signaledUsers?.length > 0 && (
