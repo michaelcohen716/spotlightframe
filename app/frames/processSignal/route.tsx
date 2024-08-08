@@ -59,6 +59,8 @@ const frameHandler = frames(async (ctx) => {
       </div>
     );
   };
+
+
   return {
     image: (
       <div
@@ -69,7 +71,7 @@ const frameHandler = frames(async (ctx) => {
       >
         {message()}
         <div tw="flex font-bold my-3 text-center justify-center">
-          New Signal Score: {formatNumberWithCommas(Math.round(newSignalValue))}
+          {success && "New"} Signal Score: {formatNumberWithCommas(Math.round(newSignalValue))}
         </div>
         {/* @ts-ignore */}
         {signaledUsers?.length > 0 && (
