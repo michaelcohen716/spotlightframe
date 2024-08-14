@@ -34,7 +34,7 @@ const frameHandler = frames(async (ctx) => {
           fontFamily: "'Sora', sans-serif",
         }}
       >
-        <InfoHeader users={users} booking={booking} />
+        {/* <InfoHeader users={users} booking={booking} /> */}
         {ogData.preprocessedImage && (
           <img src={ogData.preprocessedImage} tw="" />
         )}
