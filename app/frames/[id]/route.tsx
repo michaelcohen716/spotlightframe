@@ -83,6 +83,7 @@ const frameHandler = frames(async (ctx) => {
         Signal 🗣 this post
       </Button>,
     ],
+    title: 'Spotlight Frame'
   };
 });
 
