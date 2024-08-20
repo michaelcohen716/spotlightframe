@@ -1,11 +1,7 @@
 // @ts-nocheck
 /* eslint-disable react/jsx-key */
 import { Button } from "frames.js/next";
-import {
-  fetchBooking,
-  fetchBulkUsers,
-  fetchPreview,
-} from "../../services";
+import { fetchBooking, fetchBulkUsers, fetchPreview } from "../../services";
 import { frames } from "../frames";
 import InfoHeader from "./InfoHeader";
 
@@ -35,6 +31,16 @@ const frameHandler = frames(async (ctx) => {
         }}
       >
         {/* <InfoHeader users={users} booking={booking} /> */}
+        <div tw="items-center mt-[-24px] mb-5 flex justify-center text-[32px] text-[#CAC4D0]">
+          <div
+            style={{
+              // not working for some reason
+              fontStyle: "italic",
+            }}
+          >
+            If you like this post, signal it below
+          </div>
+        </div>
         {ogData.preprocessedImage && (
           <img src={ogData.preprocessedImage} tw="" />
         )}
@@ -68,15 +74,14 @@ const frameHandler = frames(async (ctx) => {
         Go to Spotlight
       </Button>,
       <Button
-      action="post"
-      target={{
-        pathname: "/processSignal",
-        query: { activityId },
-      }}
-    >
-      Signal 🗣 this post
-    </Button>,
-   
+        action="post"
+        target={{
+          pathname: "/processSignal",
+          query: { activityId },
+        }}
+      >
+        Signal 🗣 this post
+      </Button>,
     ],
   };
 });
